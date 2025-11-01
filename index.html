@@ -1,0 +1,945 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Forensic Shield - Cyber Protection</title>
+    <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;700;900&family=Rajdhani:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --neon-green: #00ff00;
+            --neon-blue: #00ffff;
+            --neon-purple: #ff00ff;
+            --neon-red: #ff4444;
+            --dark-bg: #0a0a0a;
+            --card-bg: rgba(16, 16, 16, 0.8);
+            --glow: 0 0 10px currentColor;
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+        
+        body {
+            font-family: 'Rajdhani', sans-serif;
+            background: var(--dark-bg);
+            color: var(--neon-green);
+            min-height: 100vh;
+            overflow-x: hidden;
+            background-image: 
+                radial-gradient(circle at 10% 20%, rgba(0, 255, 0, 0.05) 0%, transparent 20%),
+                radial-gradient(circle at 90% 80%, rgba(0, 255, 255, 0.05) 0%, transparent 20%);
+        }
+        
+        .cyber-grid {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                linear-gradient(rgba(0, 255, 0, 0.1) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(0, 255, 0, 0.1) 1px, transparent 1px);
+            background-size: 50px 50px;
+            pointer-events: none;
+            z-index: -1;
+            animation: gridMove 20s linear infinite;
+        }
+        
+        @keyframes gridMove {
+            0% { transform: translate(0, 0); }
+            100% { transform: translate(50px, 50px); }
+        }
+        
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            position: relative;
+            z-index: 1;
+        }
+        
+        /* Cyber Header */
+        .cyber-header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 30px;
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            position: relative;
+            overflow: hidden;
+            backdrop-filter: blur(10px);
+            animation: slideDown 1s ease-out;
+        }
+        
+        .cyber-header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: linear-gradient(45deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            animation: shine 3s infinite;
+        }
+        
+        .cyber-header h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 3.5em;
+            font-weight: 900;
+            margin-bottom: 10px;
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            text-shadow: var(--glow);
+            animation: textGlow 2s ease-in-out infinite alternate;
+        }
+        
+        .cyber-header p {
+            font-size: 1.2em;
+            color: var(--neon-blue);
+            margin-bottom: 20px;
+            font-weight: 600;
+        }
+        
+        .status-indicators {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 20px;
+            flex-wrap: wrap;
+        }
+        
+        .status-item {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            font-weight: 600;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 10px 15px;
+            border-radius: 25px;
+            border: 1px solid var(--neon-green);
+        }
+        
+        .pulse-dot {
+            width: 12px;
+            height: 12px;
+            border-radius: 50%;
+            background: var(--neon-green);
+            animation: pulse 2s infinite;
+            box-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .pulse-dot.blue {
+            background: var(--neon-blue);
+            box-shadow: 0 0 10px var(--neon-blue);
+        }
+        
+        .pulse-dot.purple {
+            background: var(--neon-purple);
+            box-shadow: 0 0 10px var(--neon-purple);
+        }
+        
+        /* Dashboard Grid */
+        .dashboard {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 25px;
+            margin-bottom: 30px;
+        }
+        
+        /* Cyber Cards */
+        .cyber-card {
+            background: var(--card-bg);
+            border: 1px solid var(--neon-green);
+            border-radius: 15px;
+            padding: 25px;
+            backdrop-filter: blur(10px);
+            position: relative;
+            overflow: hidden;
+            animation: fadeInUp 0.8s ease-out;
+            transition: all 0.3s ease;
+        }
+        
+        .cyber-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 30px rgba(0, 255, 0, 0.2);
+            border-color: var(--neon-blue);
+        }
+        
+        .cyber-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.1), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cyber-card:hover::before {
+            left: 100%;
+        }
+        
+        .cyber-card h2 {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.8em;
+            margin-bottom: 20px;
+            color: var(--neon-blue);
+            border-bottom: 2px solid var(--neon-green);
+            padding-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        
+        /* Device Status */
+        .device-status {
+            background: rgba(0, 255, 0, 0.05);
+            border: 1px solid rgba(0, 255, 0, 0.3);
+            border-radius: 10px;
+            padding: 20px;
+            margin-bottom: 15px;
+            animation: fadeIn 0.6s ease-out;
+        }
+        
+        .device-header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+        
+        .device-drive {
+            font-family: 'Orbitron', monospace;
+            font-size: 1.4em;
+            font-weight: 700;
+            color: var(--neon-blue);
+        }
+        
+        .protection-badge {
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            color: #000;
+            padding: 8px 16px;
+            border-radius: 20px;
+            font-weight: 700;
+            font-size: 0.9em;
+            animation: badgePulse 3s infinite;
+        }
+        
+        .protection-badge.ready {
+            background: linear-gradient(45deg, #666, #999);
+            animation: none;
+        }
+        
+        /* Protection Grid */
+        .protection-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+            margin-top: 15px;
+        }
+        
+        .protection-item {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            gap: 10px;
+            padding: 12px;
+            background: rgba(0, 0, 0, 0.3);
+            border-radius: 8px;
+            font-size: 0.95em;
+            border: 1px solid rgba(255, 255, 255, 0.1);
+            transition: all 0.3s ease;
+        }
+        
+        .protection-item:hover {
+            background: rgba(0, 255, 0, 0.1);
+            transform: translateX(5px);
+        }
+        
+        .protection-item .label {
+            font-weight: 600;
+            color: var(--neon-blue);
+        }
+        
+        .protection-item .value {
+            font-weight: 700;
+            font-family: 'Orbitron', monospace;
+        }
+        
+        .protection-item .value.allowed {
+            color: var(--neon-green);
+            text-shadow: 0 0 10px var(--neon-green);
+        }
+        
+        .protection-item .value.blocked {
+            color: var(--neon-red);
+            text-shadow: 0 0 10px var(--neon-red);
+        }
+        
+        .protection-item .value.ready {
+            color: #888;
+        }
+        
+        .protection-item .value.not-connected {
+            color: #666;
+            font-style: italic;
+        }
+        
+        /* Logs Terminal */
+        .terminal {
+            background: #000;
+            border: 2px solid var(--neon-green);
+            border-radius: 10px;
+            padding: 20px;
+            height: 400px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            position: relative;
+        }
+        
+        .terminal::before {
+            content: 'LIVE PROTECTION STREAM';
+            position: absolute;
+            top: -12px;
+            left: 20px;
+            background: var(--dark-bg);
+            color: var(--neon-green);
+            padding: 0 10px;
+            font-size: 0.8em;
+            font-weight: bold;
+        }
+        
+        .log-entry {
+            margin: 8px 0;
+            padding: 10px 12px;
+            border-left: 3px solid var(--neon-green);
+            background: rgba(0, 255, 0, 0.05);
+            animation: logSlide 0.5s ease-out;
+            position: relative;
+            overflow: hidden;
+            line-height: 1.4;
+        }
+        
+        .log-entry::before {
+            content: '>';
+            color: var(--neon-green);
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        
+        .timestamp {
+            color: var(--neon-blue);
+            margin-right: 15px;
+            font-weight: 600;
+        }
+        
+        /* Cyber Buttons */
+        .cyber-controls {
+            display: flex;
+            gap: 15px;
+            margin: 20px 0;
+            flex-wrap: wrap;
+        }
+        
+        .cyber-btn {
+            background: transparent;
+            color: var(--neon-green);
+            border: 2px solid var(--neon-green);
+            padding: 12px 24px;
+            border-radius: 8px;
+            font-family: 'Orbitron', monospace;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            font-size: 0.9em;
+        }
+        
+        .cyber-btn::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(0, 255, 0, 0.2), transparent);
+            transition: left 0.5s;
+        }
+        
+        .cyber-btn:hover::before {
+            left: 100%;
+        }
+        
+        .cyber-btn:hover {
+            background: rgba(0, 255, 0, 0.1);
+            box-shadow: 0 0 20px rgba(0, 255, 0, 0.4);
+            transform: translateY(-2px);
+        }
+        
+        .cyber-btn.primary {
+            background: linear-gradient(45deg, var(--neon-green), var(--neon-blue));
+            color: #000;
+            border: none;
+            font-weight: 700;
+        }
+        
+        .cyber-btn.primary:hover {
+            background: linear-gradient(45deg, var(--neon-blue), var(--neon-green));
+            box-shadow: 0 0 25px rgba(0, 255, 255, 0.6);
+        }
+        
+        .cyber-btn.danger {
+            border-color: var(--neon-red);
+            color: var(--neon-red);
+        }
+        
+        .cyber-btn.danger:hover {
+            background: rgba(255, 68, 68, 0.1);
+            box-shadow: 0 0 20px rgba(255, 68, 68, 0.4);
+        }
+        
+        .cyber-btn.warning {
+            border-color: #ff9800;
+            color: #ff9800;
+        }
+        
+        .cyber-btn.warning:hover {
+            background: rgba(255, 152, 0, 0.1);
+            box-shadow: 0 0 20px rgba(255, 152, 0, 0.4);
+        }
+        
+        /* Full width */
+        .full-width {
+            grid-column: 1 / -1;
+        }
+        
+        /* Animations */
+        @keyframes slideDown {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+        
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+        
+        @keyframes pulse {
+            0%, 100% { 
+                opacity: 1;
+                transform: scale(1);
+            }
+            50% { 
+                opacity: 0.7;
+                transform: scale(1.1);
+            }
+        }
+        
+        @keyframes badgePulse {
+            0%, 100% { 
+                box-shadow: 0 0 10px var(--neon-green);
+            }
+            50% { 
+                box-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-green);
+            }
+        }
+        
+        @keyframes textGlow {
+            from { text-shadow: 0 0 10px var(--neon-green); }
+            to { text-shadow: 0 0 20px var(--neon-blue), 0 0 30px var(--neon-green); }
+        }
+        
+        @keyframes shine {
+            0% { transform: translateX(-100%) translateY(-100%) rotate(45deg); }
+            100% { transform: translateX(100%) translateY(100%) rotate(45deg); }
+        }
+        
+        @keyframes logSlide {
+            from {
+                transform: translateX(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateX(0);
+                opacity: 1;
+            }
+        }
+        
+        /* Connection Status */
+        .connection-status {
+            text-align: center;
+            margin-top: 20px;
+            padding: 15px;
+            background: var(--card-bg);
+            border-radius: 10px;
+            border: 1px solid var(--neon-green);
+        }
+        
+        .live-indicator {
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            background: rgba(0, 255, 0, 0.1);
+            padding: 8px 16px;
+            border-radius: 20px;
+            border: 1px solid var(--neon-green);
+            font-weight: 600;
+        }
+        
+        /* Scrollbar Styling */
+        .terminal::-webkit-scrollbar {
+            width: 8px;
+        }
+        
+        .terminal::-webkit-scrollbar-track {
+            background: rgba(0, 255, 0, 0.1);
+            border-radius: 4px;
+        }
+        
+        .terminal::-webkit-scrollbar-thumb {
+            background: var(--neon-green);
+            border-radius: 4px;
+        }
+        
+        .terminal::-webkit-scrollbar-thumb:hover {
+            background: var(--neon-blue);
+        }
+        
+        /* Responsive Design */
+        @media (max-width: 768px) {
+            .dashboard {
+                grid-template-columns: 1fr;
+            }
+            
+            .cyber-header h1 {
+                font-size: 2.5em;
+            }
+            
+            .status-indicators {
+                flex-direction: column;
+                align-items: center;
+                gap: 15px;
+            }
+            
+            .protection-grid {
+                grid-template-columns: 1fr;
+            }
+            
+            .cyber-controls {
+                justify-content: center;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- Animated Background -->
+    <div class="cyber-grid"></div>
+    
+    <div class="container">
+        <!-- Cyber Header -->
+        <div class="cyber-header">
+            <h1>🛡️ FORENSIC SHIELD</h1>
+            <p>ENTERPRISE USB WRITE PROTECTION SYSTEM</p>
+            <div class="status-indicators">
+                <div class="status-item">
+                    <div class="pulse-dot"></div>
+                    <span>SYSTEM: <span id="systemStatus">OPERATIONAL</span></span>
+                </div>
+                <div class="status-item">
+                    <div class="pulse-dot blue"></div>
+                    <span>PROTECTION: <span id="protectionStatus">READY</span></span>
+                </div>
+                <div class="status-item">
+                    <div class="pulse-dot purple"></div>
+                    <span>MONITORING: <span id="monitoringStatus">ACTIVE</span></span>
+                </div>
+            </div>
+        </div>
+
+        <!-- Dashboard Grid -->
+        <div class="dashboard">
+            <!-- USB Protection Status -->
+            <div class="cyber-card">
+                <h2>💾 USB PROTECTION STATUS</h2>
+                <div id="deviceStatus">
+                    <div class="device-status">
+                        <div class="device-header">
+                            <span class="device-drive">NO DEVICE CONNECTED</span>
+                            <span class="protection-badge ready">READY</span>
+                        </div>
+                        <p>Insert USB drive to activate forensic protection</p>
+                    </div>
+                </div>
+                
+                <div class="cyber-controls">
+                    <button class="cyber-btn primary" onclick="simulateUSB()">
+                        🔌 SIMULATE USB CONNECTION
+                    </button>
+                </div>
+            </div>
+
+            <!-- System Information -->
+            <div class="cyber-card">
+                <h2>📊 PROTECTION METRICS</h2>
+                <div class="protection-grid">
+                    <div class="protection-item">
+                        <span class="label">🛡️ Write Protection</span>
+                        <span class="value ready" id="writeProtection">READY</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">👁️ Read Access</span>
+                        <span class="value not-connected" id="readAccess">NOT CONNECTED</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">📝 File Creation</span>
+                        <span class="value not-connected" id="fileCreate">NOT CONNECTED</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">📁 Folder Creation</span>
+                        <span class="value not-connected" id="folderCreate">NOT CONNECTED</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">✏️ File Modification</span>
+                        <span class="value not-connected" id="fileModify">NOT CONNECTED</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">🗑️ File Deletion</span>
+                        <span class="value not-connected" id="fileDelete">NOT CONNECTED</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">🔒 Forensic Integrity</span>
+                        <span class="value ready" id="forensicIntegrity">READY</span>
+                    </div>
+                    <div class="protection-item">
+                        <span class="label">⚖️ Evidence Admissible</span>
+                        <span class="value ready" id="evidenceAdmissible">READY</span>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Live Protection Logs -->
+            <div class="cyber-card full-width">
+                <h2>📝 LIVE PROTECTION STREAM</h2>
+                
+                <div class="cyber-controls">
+                    <button class="cyber-btn primary" onclick="exportLogs()">
+                        💾 EXPORT FORENSIC LOGS
+                    </button>
+                    <button class="cyber-btn warning" onclick="clearLogs()">
+                        🗑️ CLEAR TERMINAL
+                    </button>
+                    <button class="cyber-btn danger" onclick="simulateAttack()">
+                        🎯 TEST PROTECTION
+                    </button>
+                </div>
+                
+                <div class="terminal" id="liveLogs">
+                    <div class="log-entry">
+                        <span class="timestamp">[SYSTEM]</span> Forensic Shield Enterprise initialized...
+                    </div>
+                    <div class="log-entry">
+                        <span class="timestamp">[MONITORING]</span> Scanning USB ports for devices...
+                    </div>
+                    <div class="log-entry">
+                        <span class="timestamp">[STATUS]</span> System ready for forensic protection
+                    </div>
+                </div>
+            </div>
+        </div>
+
+        <!-- Connection Status -->
+        <div class="connection-status">
+            <div class="live-indicator">
+                <div class="pulse-dot"></div>
+                <span>LIVE STREAM ACTIVE</span>
+                <span> | Last Update: <span id="lastUpdate">--:--:--</span></span>
+                <span> | Connection: <span id="connectionStatus">🟢 STABLE</span></span>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        let eventSource;
+        let updateInterval;
+
+        function updateDashboard() {
+            // Update protection status based on USB connection
+            fetch('/api/protection_status')
+                .then(response => response.json())
+                .then(status => {
+                    updateProtectionMetrics(status);
+                    updateDeviceStatus();
+                    updateConnectionStatus();
+                })
+                .catch(error => {
+                    console.error('Dashboard update error:', error);
+                    document.getElementById('connectionStatus').textContent = '🔴 OFFLINE';
+                });
+        }
+
+        function updateProtectionMetrics(status) {
+            // Update all protection metrics based on USB connection
+            const metrics = {
+                'writeProtection': status.write_protection,
+                'readAccess': status.read_access,
+                'fileCreate': status.file_create,
+                'folderCreate': status.folder_create,
+                'fileModify': status.file_modify,
+                'fileDelete': status.file_delete,
+                'forensicIntegrity': status.forensic_integrity,
+                'evidenceAdmissible': status.evidence_admissible
+            };
+            
+            Object.keys(metrics).forEach(id => {
+                const element = document.getElementById(id);
+                if (element) {
+                    element.textContent = metrics[id];
+                    
+                    // Remove all classes
+                    element.className = 'value';
+                    
+                    // Add appropriate class based on status
+                    if (metrics[id] === 'BLOCKED') {
+                        element.classList.add('blocked');
+                    } else if (metrics[id] === 'ENABLED' || metrics[id] === 'ACTIVE') {
+                        element.classList.add('allowed');
+                    } else if (metrics[id] === 'NOT CONNECTED') {
+                        element.classList.add('not-connected');
+                    } else if (metrics[id] === 'READY') {
+                        element.classList.add('ready');
+                    } else if (metrics[id] === 'ALLOWED') {
+                        element.classList.add('allowed');
+                    }
+                    
+                    // Add animation
+                    element.style.animation = 'none';
+                    setTimeout(() => {
+                        element.style.animation = 'fadeIn 0.5s ease-out';
+                    }, 10);
+                }
+            });
+        }
+
+        function updateDeviceStatus() {
+            fetch('/api/devices')
+                .then(response => response.json())
+                .then(devices => {
+                    const deviceStatus = document.getElementById('deviceStatus');
+                    
+                    if (devices && devices.length > 0) {
+                        const device = devices[0];
+                        deviceStatus.innerHTML = `
+                            <div class="device-status">
+                                <div class="device-header">
+                                    <span class="device-drive">${device.drive}</span>
+                                    <span class="protection-badge">${device.protection || device.status}</span>
+                                </div>
+                                <div style="margin-bottom: 15px;">
+                                    <strong>Connected:</strong> ${device.connected_at}<br>
+                                    <strong>Files Accessible:</strong> ${device.files_accessible || 'Scanning...'}<br>
+                                    <strong>Write Protection:</strong> ${device.write_protected ? '✅ ACTIVE' : '❌ INACTIVE'}
+                                </div>
+                                <button class="cyber-btn danger" onclick="disconnectUSB()" style="margin-top: 10px;">
+                                    🔌 DISCONNECT USB
+                                </button>
+                            </div>
+                        `;
+                    } else {
+                        deviceStatus.innerHTML = `
+                            <div class="device-status">
+                                <div class="device-header">
+                                    <span class="device-drive">NO DEVICE CONNECTED</span>
+                                    <span class="protection-badge ready">READY</span>
+                                </div>
+                                <p>Insert USB drive to activate forensic protection</p>
+                            </div>
+                        `;
+                    }
+                });
+        }
+
+        function startLiveLogs() {
+            if (eventSource) {
+                eventSource.close();
+            }
+
+            eventSource = new EventSource('/api/live_logs');
+            
+            eventSource.onmessage = function(event) {
+                const data = JSON.parse(event.data);
+                updateLogsDisplay(data.logs);
+                updateConnectionStatus();
+            };
+
+            eventSource.onerror = function(event) {
+                console.log('SSE connection error');
+                document.getElementById('connectionStatus').textContent = '🟡 RECONNECTING';
+                setTimeout(startLiveLogs, 3000);
+            };
+        }
+
+        function updateLogsDisplay(logs) {
+            const logsContainer = document.getElementById('liveLogs');
+            if (logs && logs.length > 0) {
+                const currentContent = logsContainer.innerHTML;
+                const newContent = logs.map(log => 
+                    `<div class="log-entry">${log}</div>`
+                ).join('');
+                
+                if (!currentContent.includes(logs[logs.length-1].substring(0, 50))) {
+                    logsContainer.innerHTML = newContent;
+                    logsContainer.scrollTop = logsContainer.scrollHeight;
+                }
+            }
+        }
+
+        function updateConnectionStatus() {
+            document.getElementById('lastUpdate').textContent = new Date().toLocaleTimeString();
+            document.getElementById('connectionStatus').textContent = '🟢 STABLE';
+        }
+
+        function simulateUSB() {
+            fetch('/api/simulate_protection', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    // Add success animation
+                    const btn = event.target;
+                    const originalText = btn.innerHTML;
+                    btn.innerHTML = '✅ USB PROTECTED';
+                    btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                    btn.style.color = '#000';
+                    
+                    setTimeout(() => {
+                        btn.innerHTML = originalText;
+                        btn.style.background = '';
+                        btn.style.color = '';
+                    }, 2000);
+                    
+                    updateDashboard();
+                })
+                .catch(error => {
+                    console.error('USB simulation error:', error);
+                });
+        }
+
+        function disconnectUSB() {
+            fetch('/api/disconnect_usb', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    updateDashboard();
+                })
+                .catch(error => {
+                    console.error('Disconnect error:', error);
+                });
+        }
+
+        function exportLogs() {
+            window.open('/api/export_logs', '_blank');
+        }
+
+        function clearLogs() {
+            if (confirm('Clear terminal display?')) {
+                fetch('/api/clear_logs', { method: 'POST' })
+                    .then(response => response.json())
+                    .then(data => {
+                        document.getElementById('liveLogs').innerHTML = 
+                            '<div class="log-entry"><span class="timestamp">[SYSTEM]</span> Terminal cleared</div>';
+                    });
+            }
+        }
+
+        function simulateAttack() {
+            fetch('/api/simulate_attack', { method: 'POST' })
+                .then(response => response.json())
+                .then(data => {
+                    if (data.status === 'success') {
+                        // Visual feedback
+                        const btn = event.target;
+                        const originalText = btn.innerHTML;
+                        btn.innerHTML = '🛡️ THREAT NEUTRALIZED';
+                        btn.style.background = 'linear-gradient(45deg, #00ff00, #00ffff)';
+                        btn.style.color = '#000';
+                        
+                        setTimeout(() => {
+                            btn.innerHTML = originalText;
+                            btn.style.background = '';
+                            btn.style.color = '';
+                        }, 3000);
+                        
+                        updateDashboard();
+                    } else {
+                        alert(data.message);
+                    }
+                })
+                .catch(error => {
+                    alert('Error: No USB connected. Connect a device first.');
+                });
+        }
+
+        // Initialize dashboard
+        document.addEventListener('DOMContentLoaded', function() {
+            console.log('🎮 Forensic Shield - Real-time Dashboard Initialized');
+            
+            updateDashboard();
+            startLiveLogs();
+            
+            // Continuous updates every 3 seconds
+            updateInterval = setInterval(updateDashboard, 3000);
+            
+            // Add some random system status updates for demo
+            setInterval(() => {
+                const statuses = ['OPERATIONAL', 'OPTIMAL', 'SECURE'];
+                const randomStatus = statuses[Math.floor(Math.random() * statuses.length)];
+                document.getElementById('systemStatus').textContent = randomStatus;
+                
+                // Update protection status based on connection
+                fetch('/api/protection_status')
+                    .then(response => response.json())
+                    .then(status => {
+                        if (status.usb_connected) {
+                            document.getElementById('protectionStatus').textContent = 'ACTIVE';
+                        } else {
+                            document.getElementById('protectionStatus').textContent = 'READY';
+                        }
+                    });
+            }, 5000);
+        });
+
+        // Cleanup on page unload
+        window.addEventListener('beforeunload', function() {
+            if (eventSource) {
+                eventSource.close();
+            }
+            if (updateInterval) {
+                clearInterval(updateInterval);
+            }
+        });
+    </script>
+</body>
+</html>
